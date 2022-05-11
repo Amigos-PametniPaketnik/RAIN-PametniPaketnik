@@ -2,3 +2,5 @@
 /node_modules
 # Iz repozitorija odstranimo tudi cache datoteko npmja
 .npm
+# Iz repozitorija izključimo tudi spremenljivke okolja
+.env

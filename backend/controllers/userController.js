@@ -1,5 +1,31 @@
 var UserModel = require('../models/userModel.js');
 const {spawn} = require('child_process');
+const {jwt} = require('jsonwebtoken')
+const dotenv = require('dotenv');
+
+// get config vars
+dotenv.config();
+
+function generateAccessToken(username) {
+    return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
+}
+
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if (token == null) return res.sendStatus(401)
+
+    jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+        console.log(err)
+
+        if (err) return res.sendStatus(403)
+
+        req.user = user
+
+        next()
+    });
+}
 
 /**
  * userController.js
@@ -91,10 +117,26 @@ module.exports = {
     /**
      * userController.authenticate() -> Authentication of user in app with basic or biometric (face recognition) auth
      */
-    authenticate: function (req, res, next) {
+    authenticate: function (req, res) {
         if (req.body.authtype === "basic") {
             // Authenticate user in classic way (username&password)
-            login(req, res, next);
+            UserModel.authenticate(req.body.username, req.body.password, function(err, user) {
+                if(err || !user){
+                    var err = new Error('Wrong username or paassword');
+                    err.status = 401;
+                    return res.status(err.status).json({
+                        message: 'Wrong username or paassword',
+                        error: err
+                    });
+                }
+                req.session.userId = user._id;
+                //res.redirect('/users/profile');
+                const token = generateAccessToken(user.username);
+                return res.json({
+                    success: true,
+                    token: token
+                });
+            });
         }
         else if (req.body.authtype === "biometric") {
             // Authenticate user in biometric way (face recognition with deep learning)
@@ -121,7 +163,8 @@ module.exports = {
                 python.on('close', (code) => {
                     console.log("Indentification of user with id: ended");
                     return res.json({
-                        success: resultOfIndentification
+                        success: resultOfIndentification,
+                        token: generateAccessToken(user.username)
                     });
                 });
             });

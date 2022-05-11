@@ -1,4 +1,5 @@
 var UserModel = require('../models/userModel.js');
+const {spawn} = require('child_process');
 
 /**
  * userController.js
@@ -69,6 +70,67 @@ module.exports = {
 
             return res.status(201).json(user);
         });
+    },
+
+    /**
+     * userController.login() -> Login user in web app with basic authentication (username&password)
+     */
+    login: function (req, res, next) {
+        UserModel.authenticate(req.body.username, req.body.password, function(err, user){
+            if(err || !user){
+                var err = new Error('Wrong username or paassword');
+                err.status = 401;
+                return next(err);
+            }
+            req.session.userId = user._id;
+            //res.redirect('/users/profile');
+            return res.json(user);
+        });
+    },
+
+    /**
+     * userController.authenticate() -> Authentication of user in app with basic or biometric (face recognition) auth
+     */
+    authenticate: function (req, res, next) {
+        if (req.body.authtype === "basic") {
+            // Authenticate user in classic way (username&password)
+            login(req, res, next);
+        }
+        else if (req.body.authtype === "biometric") {
+            // Authenticate user in biometric way (face recognition with deep learning)
+            UserModel.findOne({_id: id}, function (err, user) {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Error when getting user',
+                        error: err
+                    });
+                }
+                if (req.file.filename === undefined) {
+                    return res.status(400).json({
+                        message: 'With biometric authentication need to be also send a picture in jpg or png format to verify user'
+                    });
+                }
+                var resultOfIndentification;
+                const python = spawn("python", ['prepoznavaindentitete.py', user.indentificationLabel, req.file.filename]);
+                // Collect result of indentification of user based on image
+                python.stdout.on('data', (data) => {
+                    console.log("Getting results of indentification of user for authentication");
+                    resultOfIndentification = data.toString();
+                });
+                // Indentification of user in python script ended successfully or with error and closed
+                python.on('close', (code) => {
+                    console.log("Indentification of user with id: ended");
+                    return res.json({
+                        success: resultOfIndentification
+                    });
+                });
+            });
+        }
+        else {
+            return res.status(400).json({
+                message: 'You can use only basic and biometric authentication',
+            });
+        }
     },
 
     /**

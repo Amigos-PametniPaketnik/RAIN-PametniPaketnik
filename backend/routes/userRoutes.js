@@ -16,6 +16,8 @@ router.get('/:id', userController.show);
  * POST
  */
 router.post('/', userController.create);
+router.post('/login', userController.login); // User login in for React web app
+router.post('/authenticate', userController.authenticate); // Authenticate usear in app with basic or biometric authorization
 
 /*
  * PUT

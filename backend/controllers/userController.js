@@ -106,7 +106,10 @@ module.exports = {
             if(err || !user){
                 var err = new Error('Wrong username or paassword');
                 err.status = 401;
-                return next(err);
+                return res.status(401).json({
+                    message: 'Wrong username or password',
+                    error: err
+                });
             }
             req.session.userId = user._id;
             //res.redirect('/users/profile');
@@ -125,7 +128,7 @@ module.exports = {
                     var err = new Error('Wrong username or paassword');
                     err.status = 401;
                     return res.status(err.status).json({
-                        message: 'Wrong username or paassword',
+                        message: 'Wrong username or paasword',
                         error: err
                     });
                 }

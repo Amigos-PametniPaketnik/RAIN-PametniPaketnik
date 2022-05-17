@@ -14,6 +14,7 @@ import {
 import {NavLink, useNavigate} from "react-router-dom";
 import {UserContext} from "../userContext";
 import {useContext, useEffect, useState} from "react";
+import {Navigate} from "react-router-dom";
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -52,6 +53,7 @@ function Login() {
 
     return (
         <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
+            {userContext.user ? <Navigate replace to="/" /> : ""}
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
                 <Box borderWidth={'2px'} p={20} borderRadius={'lg'}>
                 <Stack spacing={4} w={'full'} maxW={'md'}>

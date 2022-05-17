@@ -6,6 +6,8 @@ import Home from "./components/Home";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Logout from "./components/Logout";
+import Profile from "./components/Profile";
 
 function App() {
 
@@ -23,6 +25,8 @@ function App() {
                   <Route path={"/"} exact element={<Home/>}></Route>
                   <Route path={"/login"} exact element={<Login/>}></Route>
                   <Route path={"/register"} exact element={<Register/>}></Route>
+                  <Route path="/profile" element={<Profile />}></Route>
+                  <Route path="/logout" element={<Logout />}></Route>
               </Routes>
           </UserContext.Provider>
       </BrowserRouter>

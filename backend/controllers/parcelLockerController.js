@@ -52,8 +52,9 @@ module.exports = {
      */
     create: function (req, res) {
         var parcelLocker = new ParcellockerModel({
+            numberParcelLocker : req.body.numberParcelLocker,
 			location : req.body.location,
-			owner : req.body.owner
+			owner : req.session.userId
         });
 
         parcelLocker.save(function (err, parcelLocker) {

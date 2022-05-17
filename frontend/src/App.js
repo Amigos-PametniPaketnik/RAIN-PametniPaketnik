@@ -8,7 +8,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Logout from "./components/Logout";
 import Profile from "./components/Profile";
-
+import AddParcelLocker from "./components/AddParcelLocker";
 function App() {
 
     const [user, setUser] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
@@ -27,6 +27,7 @@ function App() {
                   <Route path={"/register"} exact element={<Register/>}></Route>
                   <Route path="/profile" element={<Profile />}></Route>
                   <Route path="/logout" element={<Logout />}></Route>
+                  <Route path={"/addParcelLocker"} exact element={<AddParcelLocker/>}></Route>
               </Routes>
           </UserContext.Provider>
       </BrowserRouter>

@@ -107,6 +107,7 @@ function Header() {
                                                 </MenuButton>
                                                 <MenuList>
                                                     <Link to={"/profile"}><MenuItem>Moj profil</MenuItem></Link>
+                                                    <Link to={"/addParcelLocker"} ><MenuItem>Paketniki</MenuItem></Link>
                                                     <MenuDivider />
                                                     <Link to={"/logout"}><MenuItem>Odjava</MenuItem></Link>
                                                 </MenuList>

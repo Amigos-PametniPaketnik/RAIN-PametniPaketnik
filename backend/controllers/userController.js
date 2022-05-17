@@ -75,6 +75,26 @@ module.exports = {
     },
 
     /**
+     * userController.profile()
+     */
+    profile: function(req, res,next){
+        UserModel.findById(req.session.userId).lean()
+            .exec(function(error, user){
+                if(error){
+                    return next(error);
+                } else{
+                    if(user===null){
+                        var err = new Error('Not authorized, go back!');
+                        err.status = 400;
+                        return next(err);
+                    } else{
+                        return res.json(user);
+                    }
+                }
+            });
+    },
+
+    /**
      * userController.create()
      */
     create: function (req, res) {
@@ -106,12 +126,31 @@ module.exports = {
             if(err || !user){
                 var err = new Error('Wrong username or paassword');
                 err.status = 401;
-                return next(err);
+                return res.status(401).json({
+                    message: 'Wrong username or password',
+                    error: err
+                });
             }
             req.session.userId = user._id;
             //res.redirect('/users/profile');
             return res.json(user);
         });
+    },
+
+    /**
+     * userController.logout()
+     */
+    logout: function (req, res, next) {
+        if(req.session){
+            req.session.destroy(function(err){
+                if(err){
+                    return next(err);
+                } else{
+                    //return res.redirect('/');
+                    return res.status(201).json({});
+                }
+            });
+        }
     },
 
     /**
@@ -125,7 +164,7 @@ module.exports = {
                     var err = new Error('Wrong username or paassword');
                     err.status = 401;
                     return res.status(err.status).json({
-                        message: 'Wrong username or paassword',
+                        message: 'Wrong username or paasword',
                         error: err
                     });
                 }

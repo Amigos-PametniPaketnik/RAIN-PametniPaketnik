@@ -23,6 +23,22 @@ module.exports = {
         });
     },
 
+
+
+    myParcelLockers: function (req, res) {
+        var id = req.session.userId;
+        
+        ParcellockerModel.find({owner: id},function (err, parcelLockers) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting parcelLocker.',
+                    error: err
+                });
+            }
+
+            return res.json(parcelLockers);
+        });
+    },
     /**
      * parcelLockerController.show()
      */

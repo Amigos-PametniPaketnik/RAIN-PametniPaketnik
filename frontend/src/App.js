@@ -9,6 +9,10 @@ import Register from "./components/Register";
 import Logout from "./components/Logout";
 import Profile from "./components/Profile";
 import AddParcelLocker from "./components/AddParcelLocker";
+import ParcelLockers from "./components/ParcelLockers";
+
+
+
 function App() {
 
     const [user, setUser] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
@@ -16,22 +20,25 @@ function App() {
         localStorage.setItem("user", JSON.stringify(userInfo));
         setUser(userInfo);
     }
+  
+        return (
+            <BrowserRouter>
+                <UserContext.Provider value={{user: user, setUserContext: updateUserData}}>
+                    <Header />
+                    <Routes>  
+                        <Route path={"/"} exact element={<ParcelLockers/>}></Route>
+                        <Route path={"/login"} exact element={<Login/>}></Route>
+                        <Route path={"/register"} exact element={<Register/>}></Route>
+                        <Route path="/profile" element={<Profile />}></Route>
+                        <Route path="/logout" element={<Logout />}></Route>
+                        <Route path={"/addParcelLocker"} exact element={<AddParcelLocker/>}></Route>
+                    </Routes>
+                </UserContext.Provider>
+            </BrowserRouter>
+        );             
+    
 
-  return (
-      <BrowserRouter>
-          <UserContext.Provider value={{user: user, setUserContext: updateUserData}}>
-              <Header />
-              <Routes>
-                  <Route path={"/"} exact element={<Home/>}></Route>
-                  <Route path={"/login"} exact element={<Login/>}></Route>
-                  <Route path={"/register"} exact element={<Register/>}></Route>
-                  <Route path="/profile" element={<Profile />}></Route>
-                  <Route path="/logout" element={<Logout />}></Route>
-                  <Route path={"/addParcelLocker"} exact element={<AddParcelLocker/>}></Route>
-              </Routes>
-          </UserContext.Provider>
-      </BrowserRouter>
-  );
+
 }
 
 export default App;

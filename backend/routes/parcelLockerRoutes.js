@@ -5,8 +5,8 @@ var parcelLockerController = require('../controllers/parcelLockerController.js')
 /*
  * GET
  */
-router.get('/', parcelLockerController.list);
-
+router.get('/all', parcelLockerController.list);
+router.get('/', parcelLockerController.myParcelLockers);
 /*
  * GET
  */

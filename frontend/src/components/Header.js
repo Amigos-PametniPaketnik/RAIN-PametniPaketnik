@@ -84,6 +84,18 @@ function Header() {
                         <Heading as={Link} to={"/"} fontWeight={"normal"} size={"md"}>
                             Direct4me
                         </Heading>
+                        <UserContext.Consumer>
+                                {context => (
+                                    context.user ?
+                                        <>
+                                            <Heading as={Link} to={"/addParcelLocker"} fontWeight={"normal"} size={"md"}>Dodaj paketnik</Heading>
+                                            </>  
+                                        :
+                                        <>
+                                        </>
+                                         )}
+                                          </UserContext.Consumer>
+                        
                     </HStack>
                     <HStack alignItems={"center"} spacing={2}>
                         <Box display={{ base: "none", md: "block" }}>

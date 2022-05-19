@@ -12,8 +12,8 @@ module.exports = {
      * accessPermissionController.list()
      */
     list: function (req, res) {
-
-        AccesspermissionModel.find(function (err, accessPermissions) {
+        var id = req.params.id;
+        AccesspermissionModel.find({idParcelLocker: id},function (err, accessPermissions) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting accessPermission!'+id,
@@ -22,7 +22,7 @@ module.exports = {
             }
 
             return res.json(accessPermissions);
-        });
+        }).populate("idUser");
     },
 
     /**

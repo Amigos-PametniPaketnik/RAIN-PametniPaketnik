@@ -51,7 +51,26 @@ function AccessPermissions(props) {
         <Link to={`/addAccessPermission/${id}`}><Button leftIcon={<MdAddTask />} colorScheme='blue'>Dodajte dostop</Button></Link>
         </Box>
        
-       </>
+        <TableContainer>
+       
+                <Table variant='simple' size="lg">
+                    <TableCaption>Vsi uporabniki z dostopi</TableCaption>
+                    <Thead>
+                        <Tr >
+                            <Th>Uporabnik</Th>
+                            <Th>Dostopno od</Th>
+                            <Th> Dostopno do </Th>
+                            <Th> Briši </Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                    
+                    {accessPermission.map(accessPermission => (<AccessPermisson accessPermission={accessPermission} key={accessPermission._id} ></AccessPermisson>))}
+                     
+                    </Tbody>
+                   
+                </Table>
+            </TableContainer></>
         
     )
 }else{

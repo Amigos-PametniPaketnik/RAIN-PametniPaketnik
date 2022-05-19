@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
+
 var accessPermissionSchema = new Schema({
 	'idParcelLocker' : {
 	 	type: Schema.Types.ObjectId,
@@ -8,7 +9,7 @@ var accessPermissionSchema = new Schema({
 	},
 	'idUser' : {
 	 	type: Schema.Types.ObjectId,
-	 	ref: 'user'
+	 	ref: 'User'
 	},
 	'accessableFrom' : Date,
 	'accessableTo' : Date

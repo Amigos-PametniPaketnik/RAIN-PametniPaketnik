@@ -10,9 +10,8 @@ import Logout from "./components/Logout";
 import Profile from "./components/Profile";
 import AddParcelLocker from "./components/AddParcelLocker";
 import ParcelLockers from "./components/ParcelLockers";
-
-
-
+import AccessPermissions from "./components/AccessPermissions";
+import AddAccessPermissions from "./components/AddAccessPermissions";
 function App() {
 
     const [user, setUser] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
@@ -32,6 +31,10 @@ function App() {
                         <Route path="/profile" element={<Profile />}></Route>
                         <Route path="/logout" element={<Logout />}></Route>
                         <Route path={"/addParcelLocker"} exact element={<AddParcelLocker/>}></Route>
+                        <Route path={"/accessPermissions/:id"} exact element={<AccessPermissions/>}></Route>
+                        <Route path={"/addAccessPermission/:id"} exact element={<AddAccessPermissions/>}></Route>
+                
+                        
                     </Routes>
                 </UserContext.Provider>
             </BrowserRouter>

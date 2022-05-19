@@ -1,4 +1,5 @@
 var AccesspermissionModel = require('../models/accessPermissionModel.js');
+var UserModel = require('../models/userModel.js');
 
 /**
  * accessPermissionController.js
@@ -6,21 +7,22 @@ var AccesspermissionModel = require('../models/accessPermissionModel.js');
  * @description :: Server-side logic for managing accessPermissions.
  */
 module.exports = {
-
+    
     /**
      * accessPermissionController.list()
      */
     list: function (req, res) {
-        AccesspermissionModel.find(function (err, accessPermissions) {
+        var id = req.params.id;
+        AccesspermissionModel.find({idParcelLocker: id},function (err, accessPermissions) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting accessPermission.',
+                    message: 'Error when getting accessPermission!'+id,
                     error: err
                 });
             }
 
             return res.json(accessPermissions);
-        });
+        }).populate("idUser");
     },
 
     /**
@@ -51,9 +53,24 @@ module.exports = {
      * accessPermissionController.create()
      */
     create: function (req, res) {
+
+        UserModel.findOne({username: req.body.username}, function (err, user) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting user.',
+                    error: err
+                });
+            }
+
+            if (!user) {
+                return res.status(404).json({
+                    message: 'No such user'
+                });
+            }
+
         var accessPermission = new AccesspermissionModel({
 			idParcelLocker : req.body.idParcelLocker,
-			idUser : req.body.idUser,
+			idUser : user._id,
 			accessableFrom : req.body.accessableFrom,
 			accessableTo : req.body.accessableTo
         });
@@ -68,6 +85,7 @@ module.exports = {
 
             return res.status(201).json(accessPermission);
         });
+    });
     },
 
     /**

@@ -41,6 +41,7 @@ function ParcelLockers() {
                             <Th>Številka paketnika</Th>
                             <Th>Lokacija</Th>
                             <Th> Pravice dostopa </Th>
+                            <Th> Dostopi </Th>
                             <Th> Briši </Th>
                             <Th> Uredi </Th>
                         </Tr>

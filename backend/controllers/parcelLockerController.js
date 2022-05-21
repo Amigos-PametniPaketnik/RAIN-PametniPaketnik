@@ -69,6 +69,11 @@ module.exports = {
     create: function (req, res) {
         var parcelLocker = new ParcellockerModel({
             numberParcelLocker : req.body.numberParcelLocker,
+            name : req.body.nameParcelLocker,
+            description : req.body.description,
+            city : req.body.city,
+            address : req.body.address,
+            postal : req.body.postal,
 			location : req.body.location,
 			owner : req.session.userId
         });

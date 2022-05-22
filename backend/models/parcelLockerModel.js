@@ -8,7 +8,7 @@ var parcelLockerSchema = new Schema({
 	'city' : String,
 	'address' : String,
 	'postal' : Number,
-	'location' : String,
+	'location' : Array,
 	'owner' : {
 	 	type: Schema.Types.ObjectId,
 	 	ref: 'user'

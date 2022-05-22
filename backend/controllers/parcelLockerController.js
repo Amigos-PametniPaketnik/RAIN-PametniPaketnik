@@ -74,7 +74,7 @@ module.exports = {
             city : req.body.city,
             address : req.body.address,
             postal : req.body.postal,
-			location : req.body.location,
+			location : Object.values(req.body.location),
 			owner : req.session.userId
         });
 

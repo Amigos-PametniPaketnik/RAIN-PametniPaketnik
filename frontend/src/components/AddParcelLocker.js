@@ -54,7 +54,8 @@ function AddParcelLocker() {
                 description: description,
                 city: city,
                 address: address,
-                postal: postal
+                postal: postal,
+                location: location
             })
         });
         const data = await res.json();
@@ -132,10 +133,10 @@ function AddParcelLocker() {
                                             </Flex>
                                 </Step>
                             </Steps>
-                            {activeStep === steps.length ? (
+                            {activeStep === steps.length && loading == false ? (
                                 <Flex px={4} py={4} width="100%" flexDirection="column">
                                     <Heading fontSize="xl" textAlign="center">
-                                        Woohoo! All steps completed!
+                                        Uspešno si dodal paketnik v tvoj račun!
                                     </Heading>
                                     <Button mx="auto" mt={6} size="sm" onClick={reset}>
                                         Reset
@@ -152,7 +153,7 @@ function AddParcelLocker() {
                                     >
                                         Nazaj
                                     </Button>
-                                    <Button size="sm" colorScheme={'teal'} onClick={nextStep} isLoading={loading? true : loading}>
+                                    <Button size="sm" colorScheme={'teal'} onClick={nextStep} isLoading={loading? true : loading} type={activeStep === steps.length -1 ? "submit" : ""}>
                                         {activeStep === steps.length - 1 ? "Dodaj nov paketnik" : "Naprej"}
                                     </Button>
                                 </Flex>

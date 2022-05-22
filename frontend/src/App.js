@@ -12,6 +12,7 @@ import AddParcelLocker from "./components/AddParcelLocker";
 import ParcelLockers from "./components/ParcelLockers";
 import AccessPermissions from "./components/AccessPermissions";
 import AddAccessPermissions from "./components/AddAccessPermissions";
+import Weathers from "./components/Weathers";
 function App() {
 
     const [user, setUser] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
@@ -33,7 +34,7 @@ function App() {
                         <Route path={"/addParcelLocker"} exact element={<AddParcelLocker/>}></Route>
                         <Route path={"/accessPermissions/:id"} exact element={<AccessPermissions/>}></Route>
                         <Route path={"/addAccessPermission/:id"} exact element={<AddAccessPermissions/>}></Route>
-                
+                        <Route path={"/weather/:id"} exact element={<Weathers/>}></Route>
                         
                     </Routes>
                 </UserContext.Provider>

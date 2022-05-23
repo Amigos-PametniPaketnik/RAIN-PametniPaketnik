@@ -11,11 +11,9 @@ function ParcelLocker(props){
         <>
                         <Tr>
                             <Td>{props.parcelLocker.numberParcelLocker}</Td>
-                            <Td> <Link to={`/weather/${props.parcelLocker.location}`}><Button leftIcon={<WiDayCloudyWindy />} colorScheme='blue'>{props.parcelLocker.location}</Button></Link> </Td>
-                      
+                            <Td> <Link to={`/weather/${props.parcelLocker.city}`}><Button leftIcon={<WiDayCloudyWindy />} colorScheme='blue'>{props.parcelLocker.location}</Button></Link> </Td>
                           <Td> <Link to={`/accessPermissions/${props.parcelLocker._id}`}><Button leftIcon={<MdBuild />} colorScheme='blue'>Pregled</Button></Link> </Td>
                         </Tr>
-         
             </>
     );
 }

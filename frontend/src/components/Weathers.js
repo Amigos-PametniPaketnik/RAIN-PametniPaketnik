@@ -27,7 +27,6 @@ function Weathers(props) {
     const { id } = useParams();
     const location=id;
     const userContext = useContext(UserContext);
-    const [locationKey, setLocationKey] = useState({});
     const [weatherForecast, setLocationForcast] = useState({});
    // const APIkey="a5lVWxybatxzps6ortFMGbKXdll7NF7z";
    // const APIkey= "tXaerq2s1UMKbchoascV5uiatYAmzVbu";
@@ -35,27 +34,22 @@ function Weathers(props) {
    const APIkey= "xejIme8G5hBjzZZgpAKS7TGvVVGWFe5I";
    
     useEffect( function(){
-
-        const getLocationKey = async function(){
-
+        async function getLocationKey() {
             const res = await fetch("http://dataservice.accuweather.com/locations/v1/cities/search?apikey="+APIkey+"&q="+location);
             const data = await res.json();
             console.log(data[0]);
-            setLocationKey(data[0]);
-        
+            if (data[0].Key !== undefined) {
+                getLocationWeatherForecast(data[0].Key);
+            }
         }
-
-        const getLocationWeatherForcast = async function(){
-         Promise.allSettled([getLocationKey()]);
-            const res = await fetch("http://dataservice.accuweather.com/forecasts/v1/daily/5day/"+locationKey.Key+"?apikey="+APIkey+"&language=sl&metric=true");
+        
+        async function getLocationWeatherForecast(locationKey) {
+            const res = await fetch("http://dataservice.accuweather.com/forecasts/v1/daily/5day/"+locationKey+"?apikey="+APIkey+"&language=sl&metric=true");
             const data = await res.json();
             console.log(data);
             setLocationForcast(data)
-           
-        
         }
-        getLocationWeatherForcast();
-       
+        getLocationKey();
     }, []);
 
     function isEmpty(obj) {

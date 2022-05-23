@@ -1,4 +1,5 @@
 var UnlockedModel = require('../models/unlockedModel.js');
+var UserModel = require('../models/userModel');
 
 /**
  * unlockedController.js
@@ -47,14 +48,38 @@ module.exports = {
         });
     },
 
+        /**
+     * unlockedController.getUnlocksByParcelLocker()
+     */
+         getUnlocksByParcelLocker(req, res) {
+            var idParcelLocker = req.params.id;
+
+            UnlockedModel.find({idParcelLocker: idParcelLocker}).lean().populate("idUser").exec(function (err, unlocked) {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Error when getting unlocked.',
+                        error: err
+                    });
+                }
+    
+                if (!unlocked) {
+                    return res.status(404).json({
+                        message: 'No such unlocked'
+                    });
+                }
+    
+                return res.json(unlocked);
+            });
+        },
+
     /**
      * unlockedController.create()
      */
     create: function (req, res) {
         var unlocked = new UnlockedModel({
 			idParcelLocker : req.body.idParcelLocker,
-			idUser : req.body.idUser,
-			dateTime : req.body.dateTime
+			idUser : req.body.userId,
+			dateTime : req.body.datetime
         });
 
         unlocked.save(function (err, unlocked) {

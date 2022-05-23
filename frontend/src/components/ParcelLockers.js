@@ -41,15 +41,15 @@ function ParcelLockers() {
         <Stack minH={'100vh'} minW={'lg'} direction={{ base: 'column', md: 'row' }}>
         <Flex p={8} flex={1} w={'full'} h={'full'}>
         <TableContainer>
-                <Table variant='simple' size="lg">
+                <Table variant='simple' size="md">
                     <TableCaption>Vsi paketniki</TableCaption>
                     <Thead>
                         <Tr >
                             <Th>Paketnik</Th>
                             <Th> Pravice dostopa </Th>
                             <Th> Odklepi </Th>
-                            <Th> Briši </Th>
                             <Th> Uredi </Th>
+                            <Th> Briši </Th>
                         </Tr>
                     </Thead>
                     <Tbody>

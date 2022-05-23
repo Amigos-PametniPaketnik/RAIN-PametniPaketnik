@@ -8,7 +8,7 @@ var unlockedSchema = new Schema({
 	},
 	'idUser' : {
 	 	type: Schema.Types.ObjectId,
-	 	ref: 'user'
+	 	ref: 'User'
 	},
 	'dateTime' : Date
 });

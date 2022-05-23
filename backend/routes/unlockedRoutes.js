@@ -11,6 +11,7 @@ router.get('/', unlockedController.list);
  * GET
  */
 router.get('/:id', unlockedController.show);
+router.get('/getByParcelLocker/:id', unlockedController.getUnlocksByParcelLocker);
 
 /*
  * POST

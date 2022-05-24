@@ -173,7 +173,12 @@ module.exports = {
                 const token = generateAccessToken(user.username);
                 return res.json({
                     success: true,
-                    token: token
+                    id: user._id,
+                    username: user.username,
+                    name: user.name,
+                    lastname: user.lastname,
+                    email: user.email,
+                    accesstoken: token
                 });
             });
         }

@@ -60,6 +60,7 @@ function AccessPermissions(props) {
                             <Th>Uporabnik</Th>
                             <Th>Dostopno od</Th>
                             <Th> Dostopno do </Th>
+                            <Th> Uredi </Th>
                             <Th> Briši </Th>
                         </Tr>
                     </Thead>

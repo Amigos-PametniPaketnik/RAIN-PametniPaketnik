@@ -17,6 +17,13 @@ var parcelLockersRouter = require('./routes/parcelLockerRoutes');
 var accessPermissionsRouter = require('./routes/accessPermissionRoutes');
 var unlocksRouter = require('./routes/unlockedRoutes');
 var eNotifyRouter = require('./routes/eNotifyRoutes');
+// Api Routers
+var indexApiRouter = require('./routes/indexApi');
+var usersApiRouter = require('./routes/userRoutesApi');
+var parcelLockerApiRouter = require('./routes/parcelLockerRoutesApi');
+var accessPermissionsApiRouter = require('./routes/accessPremissionRoutesApi');
+var unlocksApiRouter = require('./routes/unlockedApiRoutes');
+var eNotifyApiRouter = require('./routes/eNotifyApiRoutes');
 
 var app = express();
 
@@ -60,6 +67,14 @@ app.use('/parcel-lockers', parcelLockersRouter);
 app.use('/access-permissions', accessPermissionsRouter);
 app.use('/unlocks', unlocksRouter);
 app.use('/notifications', eNotifyRouter);
+// Router for third useable Restful API
+app.use('/api/', indexRouter);
+app.use('/api/users', usersApiRouter);
+app.use('/api/parcel-lockers', parcelLockerApiRouter);
+app.use('/api/access-premissions', accessPermissionsApiRouter);
+app.use('/api/unlocks', unlocksApiRouter);
+app.use('/api/notifications', eNotifyApiRouter);
+
 
 
 // catch 404 and forward to error handler

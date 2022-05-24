@@ -31,30 +31,30 @@ function authenticateToken(req, res, next) {
 /*
  * GET
  */
-router.get('/', userController.list);
-router.get('/profile', requiresLogin, userController.profile);
+router.get('/', authenticateToken, userController.list);
+router.get('/profile', authenticateToken, userController.profile);
 
 /*
  * GET
  */
-router.get('/:id', userController.show);
-router.get('/logout', userController.logout);
+router.get('/:id', authenticateToken, userController.show);
+router.get('/logout', authenticateToken, userController.logout);
 
 /*
  * POST
  */
-router.post('/', userController.create);
-router.post('/login', userController.login); // User login in for React web app
+router.post('/', authenticateToken, userController.create);
+router.post('/login', authenticateToken, userController.login); // User login in for React web app
 router.post('/authenticate', userController.authenticate); // Authenticate usear in app with basic or biometric authorization
 
 /*
  * PUT
  */
-router.put('/:id', userController.update);
+router.put('/:id', authenticateToken, userController.update);
 
 /*
  * DELETE
  */
-router.delete('/:id', userController.remove);
+router.delete('/:id', authenticateToken, userController.remove);
 
 module.exports = router;

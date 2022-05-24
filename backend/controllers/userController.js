@@ -1,13 +1,13 @@
 var UserModel = require('../models/userModel.js');
 const {spawn} = require('child_process');
-const {jwt} = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv');
 
 // get config vars
 dotenv.config();
 
 function generateAccessToken(username) {
-    return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
+    return jwt.sign({data: username}, 'skrivno', { expiresIn: '1800s' });
 }
 
 function authenticateToken(req, res, next) {
@@ -16,7 +16,7 @@ function authenticateToken(req, res, next) {
 
     if (token == null) return res.sendStatus(401)
 
-    jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+    jwt.verify(token, "skrivno", (err, user) => {
         console.log(err)
 
         if (err) return res.sendStatus(403)

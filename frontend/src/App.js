@@ -12,6 +12,7 @@ import AddParcelLocker from "./components/AddParcelLocker";
 import ParcelLockers from "./components/ParcelLockers";
 import AccessPermissions from "./components/AccessPermissions";
 import AddAccessPermissions from "./components/AddAccessPermissions";
+import Weathers from "./components/Weathers";
 import Unlocks from './components/Unlocks';
 import AddUnlock from './components/AddUnlock';
 function App() {
@@ -37,6 +38,9 @@ function App() {
                         <Route path={"/addAccessPermission/:id"} exact element={<AddAccessPermissions/>}></Route>
                         <Route path={"/unlocks/:id"} exact element={<Unlocks />}></Route>
                         <Route path={"/addUnlock/:id"} exact element={<AddUnlock />}></Route>
+                        <Route path={"/weather/:id"} exact element={<Weathers/>}></Route>
+                        <Route path={"/weather/:id"} exact element={<Weathers/>}></Route>
+
                     </Routes>
                 </UserContext.Provider>
             </BrowserRouter>

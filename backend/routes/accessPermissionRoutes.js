@@ -13,6 +13,7 @@ router.get('/accessPermissions', accessPermissionController.list);
  */
 router.get('/:id', accessPermissionController.list);
 router.get('/accessPermissions/:id', accessPermissionController.list);
+router.get('/get/:id', accessPermissionController.show);
 /*
  * POST
  */

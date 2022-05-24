@@ -46,7 +46,7 @@ module.exports = {
             }
 
             return res.json(accessPermission);
-        });
+        }).populate("idUser");
     },
 
     /**
@@ -108,21 +108,39 @@ module.exports = {
                 });
             }
 
-            accessPermission.idParcelLocker = req.body.idParcelLocker ? req.body.idParcelLocker : accessPermission.idParcelLocker;
-			accessPermission.idUser = req.body.idUser ? req.body.idUser : accessPermission.idUser;
-			accessPermission.accessableFrom = req.body.accessableFrom ? req.body.accessableFrom : accessPermission.accessableFrom;
-			accessPermission.accessableTo = req.body.accessableTo ? req.body.accessableTo : accessPermission.accessableTo;
-			
-            accessPermission.save(function (err, accessPermission) {
+            var username = req.body.username;
+            UserModel.findOne({$or:[{username: username}, {username: username}]}, function (err, user) {
                 if (err) {
                     return res.status(500).json({
-                        message: 'Error when updating accessPermission.',
+                        message: 'Error when getting user.',
                         error: err
                     });
                 }
 
-                return res.json(accessPermission);
+                if (!user) {
+                    return res.status(404).json({
+                        message: 'Napačen uporabniški račun'
+                    });
+                }
+
+                accessPermission.idUser = user._id;
+                accessPermission.accessableFrom = req.body.accessableFrom ? req.body.accessableFrom : accessPermission.accessableFrom;
+                accessPermission.accessableTo = req.body.accessableTo ? req.body.accessableTo : accessPermission.accessableTo;
+
+                accessPermission.save(function (err, accessPermission) {
+                    if (err) {
+                        return res.status(500).json({
+                            message: 'Error when updating accessPermission.',
+                            error: err
+                        });
+                    }
+
+                    return res.json(accessPermission);
+                });
+
             });
+
+
         });
     },
 

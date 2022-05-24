@@ -110,8 +110,13 @@ module.exports = {
                 });
             }
 
+            parcelLocker.numberParcelLocker = req.body.numberParcelLocker ? req.body.numberParcelLocker : parcelLocker.numberParcelLocker;
+            parcelLocker.name = req.body.nameParcelLocker ? req.body.nameParcelLocker : parcelLocker.name;
+            parcelLocker.description = req.body.description ? req.body.description : parcelLocker.description;
+            parcelLocker.city = req.body.city ? req.body.city : parcelLocker.city;
+            parcelLocker.address = req.body.address ? req.body.address : parcelLocker.address;
+            parcelLocker.postal = req.body.postal ? req.body.postal : parcelLocker.postal;
             parcelLocker.location = req.body.location ? req.body.location : parcelLocker.location;
-			parcelLocker.owner = req.body.owner ? req.body.owner : parcelLocker.owner;
 			
             parcelLocker.save(function (err, parcelLocker) {
                 if (err) {

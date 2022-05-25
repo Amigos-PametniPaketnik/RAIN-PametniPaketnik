@@ -127,7 +127,7 @@ module.exports = {
                 var err = new Error('Wrong username or paassword');
                 err.status = 401;
                 return res.status(401).json({
-                    message: 'Wrong username or password',
+                    message: 'Napačno uporabniško ime ali geslo!',
                     error: err
                 });
             }

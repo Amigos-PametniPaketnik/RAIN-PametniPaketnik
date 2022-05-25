@@ -111,9 +111,10 @@ function Header() {
                                                     cursor={'pointer'}
                                                     minW={0}>
                                                     <Avatar
+                                                        name={context.user.name +' '+context.user.lastname}
                                                         size={'sm'}
                                                         src={
-                                                            'https://bit.ly/dan-abramov'
+                                                            ''
                                                         }
                                                     />
                                                 </MenuButton>

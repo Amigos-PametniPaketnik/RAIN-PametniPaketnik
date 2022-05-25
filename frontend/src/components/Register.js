@@ -53,7 +53,7 @@ function Register() {
             setEmail("");
             setName("");
             setLastName("");
-            setError("Registration failed");
+            setError("Registracija je spodletela!");
         }
     }
 

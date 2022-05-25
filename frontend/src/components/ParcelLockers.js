@@ -87,6 +87,7 @@ function ParcelLockers() {
 }else{
     return (
         <>
+        {!userContext.user ? <Navigate replace to="/login" /> : ""}
         <Box p={12}>
             <Heading mb={6}>Nimate paketnikov!</Heading>
            </Box>

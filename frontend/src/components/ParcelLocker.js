@@ -12,12 +12,14 @@ import {
     AlertDialogHeader,
     AlertDialogContent,
     AlertDialogOverlay,
-    useDisclosure
+    useDisclosure,
+    Tooltip
 
   } from '@chakra-ui/react'
 import { Link, useNavigate } from "react-router-dom";
 import { Button, ButtonGroup } from '@chakra-ui/react'
 import { MdBuild , MdCall, MdDelete, MdUpdate, MdVpnKey } from "react-icons/md"
+import { WiDayCloudyWindy} from "react-icons/wi";
 import {useRef} from "react";
 
 function ParcelLocker(props){
@@ -40,7 +42,14 @@ function ParcelLocker(props){
                               {props.parcelLocker.name}
                               </StackItem>
                               <StackItem>
-                              {props.parcelLocker.address} {props.parcelLocker.city} {props.parcelLocker.postal}
+                              {props.parcelLocker.address} {props.parcelLocker.postal} {props.parcelLocker.city}
+                              </StackItem>
+                              <StackItem>
+                              <Link to={`/weather/${props.parcelLocker.city}`}>
+                                  <Tooltip hasArrow label={"Vremenska napoved"}>
+                                  <Button leftIcon={<WiDayCloudyWindy />} size={"sm"}>{props.parcelLocker.city}</Button>
+                                  </Tooltip>
+                              </Link>
                               </StackItem>
                               </Stack>
                               </WrapItem>

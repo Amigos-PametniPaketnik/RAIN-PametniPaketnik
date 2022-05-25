@@ -138,9 +138,6 @@ function AddParcelLocker() {
                                     <Heading fontSize="xl" textAlign="center">
                                         Uspešno si dodal paketnik v tvoj račun!
                                     </Heading>
-                                    <Button mx="auto" mt={6} size="sm" onClick={reset}>
-                                        Reset
-                                    </Button>
                                 </Flex>
                             ) : (
                                 <Flex width="100%" justify="flex-end" mb={5}>
@@ -153,7 +150,7 @@ function AddParcelLocker() {
                                     >
                                         Nazaj
                                     </Button>
-                                    <Button size="sm" colorScheme={'teal'} onClick={nextStep} isLoading={loading? true : loading} type={activeStep === steps.length -1 ? "submit" : ""}>
+                                    <Button size="sm" colorScheme={'teal'} onClick={activeStep === steps.length-1 ? AddParcelLocker : nextStep} isLoading={loading? true : loading} type={activeStep === steps.length -1 ? "submit" : ""}>
                                         {activeStep === steps.length - 1 ? "Dodaj nov paketnik" : "Naprej"}
                                     </Button>
                                 </Flex>

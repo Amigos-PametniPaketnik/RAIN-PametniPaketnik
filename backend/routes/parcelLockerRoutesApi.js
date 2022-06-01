@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var parcelLockerController = require('../controllers/parcelLockerController.js');
+const jwt = require("jsonwebtoken");
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization']

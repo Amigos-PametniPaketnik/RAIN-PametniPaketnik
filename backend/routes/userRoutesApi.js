@@ -3,6 +3,9 @@ var router = express.Router();
 var userController = require('../controllers/userController.js');
 const jwt = require("jsonwebtoken");
 
+var multer = require('multer');
+var upload = multer({dest: 'public/images/'});
+
 /*
 * Allow access to endpoint only logged in users
  */
@@ -45,7 +48,9 @@ router.get('/logout', authenticateToken, userController.logout);
  */
 router.post('/', authenticateToken, userController.create);
 router.post('/login', authenticateToken, userController.login); // User login in for React web app
-router.post('/authenticate', userController.authenticate); // Authenticate usear in app with basic or biometric authorization
+router.post('/hasPremissionToOpen/:id', authenticateToken, userController.checkPremissionToOpen); // Check if user has premission to open specific box
+router.post('/authenticate', upload.single('photo'), userController.authenticate); // Authenticate usear in app with basic or biometric authorization
+router.post('/hasPremissionToOpen', authenticateToken, );
 
 /*
  * PUT

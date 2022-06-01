@@ -1,4 +1,6 @@
 var UserModel = require('../models/userModel.js');
+var ParcelLockerModel = require('../models/parcelLockerModel');
+var AccesspermissionModel = require('../models/accessPermissionModel');
 const {spawn} = require('child_process');
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv');
@@ -184,19 +186,23 @@ module.exports = {
         }
         else if (req.body.authtype === "biometric") {
             // Authenticate user in biometric way (face recognition with deep learning)
-            UserModel.findOne({_id: id}, function (err, user) {
+            /* UserModel.findOne({_id: id}, function (err, user) {
                 if (err) {
                     return res.status(500).json({
                         message: 'Error when getting user',
                         error: err
                     });
-                }
+                } */
                 if (req.file.filename === undefined) {
                     return res.status(400).json({
                         message: 'With biometric authentication need to be also send a picture in jpg or png format to verify user'
                     });
                 }
-                var resultOfIndentification;
+                console.log("Biometrična prijava!");
+                return res.json({
+                    success: true
+                });
+                /* var resultOfIndentification;
                 const python = spawn("python", ['prepoznavaindentitete.py', user.indentificationLabel, req.file.filename]);
                 // Collect result of indentification of user based on image
                 python.stdout.on('data', (data) => {
@@ -210,14 +216,53 @@ module.exports = {
                         success: resultOfIndentification,
                         token: generateAccessToken(user.username)
                     });
-                });
-            });
+                }); 
+            }); */
         }
         else {
             return res.status(400).json({
                 message: 'You can use only basic and biometric authentication',
             });
         }
+    },
+
+    /**
+     * userController.checkPremissionToOpen()
+     */
+    checkPremissionToOpen: function name(req, res) {
+        console.log("Prejeto: " + req.body.idParcelLocker);
+        var id = req.params.id;
+
+        ParcelLockerModel.findOne({numberParcelLocker: req.body.idParcelLocker, owner: id}).lean().exec(function (err, parcelLocker) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when checking premissions for opener as owner',
+                    error: err
+                });
+            }
+
+            if (!parcelLocker) {  
+                AccesspermissionModel.findOne({idParcelLocker: req.body.idParcelLocker, idUser: id}).populate("idParcelLocker").exec(function (err, accessPermission) {
+                    if (err) {
+                        return res.status(500).json({
+                            message: 'Error when checking premissions for opener as owner',
+                            error: err
+                        });
+                    }
+                    if (!accessPermission) {
+                        return res.json({
+                            premission: false
+                        });
+                    }
+                    return res.json(accessPermission);
+                });
+            }
+            else {
+                parcelLocker.idParcelLocker = parcelLocker._id;
+                console.log(parcelLocker);
+                return res.json(parcelLocker);
+            }
+        })
     },
 
     /**

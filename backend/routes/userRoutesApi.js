@@ -4,7 +4,7 @@ var userController = require('../controllers/userController.js');
 const jwt = require("jsonwebtoken");
 
 var multer = require('multer');
-var upload = multer({dest: 'public/images/'});
+var upload = multer({dest: 'biometricauth/uploads/'});
 
 /*
 * Allow access to endpoint only logged in users

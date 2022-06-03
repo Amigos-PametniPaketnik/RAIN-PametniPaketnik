@@ -199,25 +199,42 @@ module.exports = {
                     });
                 }
                 console.log("Biometrična prijava!");
-                return res.json({
+                /* return res.json({
                     success: true
-                });
-                /* var resultOfIndentification;
-                const python = spawn("python", ['prepoznavaindentitete.py', user.indentificationLabel, req.file.filename]);
+                }); */
+                var resultOfIndentification;
+                const python = spawn("docker", ["run","-i", "-v", "$(pwd)/uploads/:/app/images/", "-v", "$(pwd)/trainfaces/:/app/faces/", "-v", "$(pwd)/featuresmodels/:/app/featuresmodels/", "0706c498f48e", "0", req.file.filename], {cwd: "biometricauth/", shell: true });
                 // Collect result of indentification of user based on image
                 python.stdout.on('data', (data) => {
+                    console.log(data.toString());
                     console.log("Getting results of indentification of user for authentication");
                     resultOfIndentification = data.toString();
                 });
                 // Indentification of user in python script ended successfully or with error and closed
                 python.on('close', (code) => {
-                    console.log("Indentification of user with id: ended");
-                    return res.json({
-                        success: resultOfIndentification,
-                        token: generateAccessToken(user.username)
+                    console.log(code.toString());
+                    console.log("Detected face of user: " + resultOfIndentification);
+                    UserModel.findOne({label: "0"}, function (err, user) {
+                        if (err || !user) {
+                            return res.json({
+                                success: false
+                            });
+                        }
+                        const token = generateAccessToken(user.username);
+                        console.log(user);
+                        return res.json({
+                            success: true,
+                            id: user._id,
+                            username: user.username,
+                            name: user.name,
+                            lastname: user.lastname,
+                            email: user.email,
+                            accesstoken: token
+                        });
+
                     });
                 }); 
-            }); */
+           /* }); */
         }
         else {
             return res.status(400).json({

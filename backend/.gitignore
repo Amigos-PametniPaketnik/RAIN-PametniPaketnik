@@ -4,3 +4,6 @@
 .npm
 # Iz repozitorija izključimo tudi spremenljivke okolja
 .env
+biometricauth/trainfaces/
+biometricauth/uploads/
+biometricauth/featuresmodels/

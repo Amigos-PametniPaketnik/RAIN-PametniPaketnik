@@ -8,7 +8,7 @@ var userSchema = new Schema({
 	'name' : String,
 	'lastname' : String,
 	'email' : String,
-	'label': String
+	'label': Number
 });
 
 userSchema.pre('save', function(next){

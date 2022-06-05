@@ -28,7 +28,7 @@ function Login() {
         e.preventDefault();
         setLoading(true);
         setError(null);
-        const res = await fetch("http://localhost:3001/users/login", {
+        const res = await fetch("http://snf-58216.vm.okeanos-global.grnet.gr:3001/users/login", {
             method: "POST",
             credentials: "include",
             headers: { 'Content-Type': 'application/json'},

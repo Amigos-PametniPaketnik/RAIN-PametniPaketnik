@@ -18,7 +18,7 @@ function authenticateToken(req, res, next) {
  * GET
  */
 router.get('/all', authenticateToken, parcelLockerController.list);
-router.get('/', authenticateToken, parcelLockerController.myParcelLockers);
+router.get('/:id', parcelLockerController.myParcelLockersApi);
 /*
  * GET
  */

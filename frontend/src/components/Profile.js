@@ -11,7 +11,7 @@ function Profile(props) {
 
     useEffect(function(){
         const getProfile = async function(){
-            const res = await fetch("http://localhost:3001/users/profile", {credentials: "include"});
+            const res = await fetch("http://snf-58216.vm.okeanos-global.grnet.gr:3001/users/profile", {credentials: "include"});
             const data = await res.json();
             setProfile(data);
         }

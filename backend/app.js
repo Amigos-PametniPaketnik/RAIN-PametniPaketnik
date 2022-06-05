@@ -28,7 +28,7 @@ var eNotifyApiRouter = require('./routes/eNotifyApiRoutes');
 var app = express();
 
 var cors = require('cors');
-var allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+var allowedOrigins = ['http://snf-58216.vm.okeanos-global.grnet.gr:3000', 'http://snf-58216.vm.okeanos-global.grnet.gr:3001'];
 app.use(cors({
   credentials: true,
   origin: function(origin, callback){

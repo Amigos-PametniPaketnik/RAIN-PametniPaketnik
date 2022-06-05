@@ -39,6 +39,21 @@ module.exports = {
             return res.json(parcelLockers);
         });
     },
+
+    myParcelLockersApi: function (req, res) {
+        var id = req.params.id;
+        
+        ParcellockerModel.find({owner: id},function (err, parcelLockers) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting parcelLocker.',
+                    error: err
+                });
+            }
+
+            return res.json(parcelLockers);
+        });
+    },
     /**
      * parcelLockerController.show()
      */

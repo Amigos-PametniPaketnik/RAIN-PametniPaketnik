@@ -44,7 +44,7 @@ function AddParcelLocker() {
     async function AddParcelLocker(e){
         e.preventDefault();
         setLoading(true);
-        const res = await fetch("http://localhost:3001/parcel-lockers", {
+        const res = await fetch("http://snf-58216.vm.okeanos-global.grnet.gr:3001/parcel-lockers", {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },

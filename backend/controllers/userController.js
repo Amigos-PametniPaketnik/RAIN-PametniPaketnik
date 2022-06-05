@@ -203,18 +203,18 @@ module.exports = {
                     success: true
                 }); */
                 var resultOfIndentification;
-                const python = spawn("docker", ["run","-i", "-v", "$(pwd)/uploads/:/app/images/", "-v", "$(pwd)/trainfaces/:/app/faces/", "-v", "$(pwd)/featuresmodels/:/app/featuresmodels/", "0706c498f48e", "0", req.file.filename], {cwd: "biometricauth/", shell: true });
+                const python = spawn("docker", ["run","-i", "-v", "$(pwd)/uploads/:/app/images/", "-v", "$(pwd)/trainfaces/:/app/faces/", "-v", "$(pwd)/featuresmodels/:/app/featuresmodels/", "c05b28c99f51", "0", req.file.filename], {cwd: "biometricauth/", shell: true });
                 // Collect result of indentification of user based on image
                 python.stdout.on('data', (data) => {
                     console.log(data.toString());
-                    console.log("Getting results of indentification of user for authentication");
-                    resultOfIndentification = data.toString();
+                    console.log("Pridobivam rezultate indentifikacije osebe po obrazu...");
+                    resultOfIndentification = data;
                 });
                 // Indentification of user in python script ended successfully or with error and closed
                 python.on('close', (code) => {
                     console.log(code.toString());
-                    console.log("Detected face of user: " + resultOfIndentification);
-                    UserModel.findOne({label: "0"}, function (err, user) {
+                    console.log("Obraz zaznan osebe z labelo: " + resultOfIndentification);
+                    UserModel.findOne({label: resultOfIndentification}, function (err, user) {
                         if (err || !user) {
                             return res.json({
                                 success: false

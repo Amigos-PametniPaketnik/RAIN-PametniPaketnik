@@ -32,7 +32,7 @@ function AddUnlock() {
         
         e.preventDefault();
         setLoading(true);
-        const res = await fetch("http://localhost:3001/unlocks", {
+        const res = await fetch("http://snf-58216.vm.okeanos-global.grnet.gr:3001/unlocks", {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },

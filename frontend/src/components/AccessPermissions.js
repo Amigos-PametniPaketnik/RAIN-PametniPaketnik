@@ -30,7 +30,7 @@ function AccessPermissions(props) {
 
     useEffect(function(){
         const getAccessPermissions = async function(){
-            const res = await fetch("http://localhost:3001/access-permissions/"+id, {credentials: "include"});
+            const res = await fetch("http://snf-58216.vm.okeanos-global.grnet.gr:3001/access-permissions/"+id, {credentials: "include"});
             const data = await res.json();
             setAccessPermissions(data);
         }

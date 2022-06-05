@@ -32,7 +32,7 @@ function AddAccessPermission() {
         
         e.preventDefault();
         setLoading(true);
-        const res = await fetch("http://localhost:3001/access-permissions/:id", {
+        const res = await fetch("http://snf-58216.vm.okeanos-global.grnet.gr:3001/access-permissions/:id", {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },

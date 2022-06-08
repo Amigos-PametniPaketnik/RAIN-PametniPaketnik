@@ -31,7 +31,7 @@ function Unlocks(props) {
 
     useEffect(function(){
         const getUnlocks = async function(){
-            const res = await fetch("http://localhost:3001/unlocks/getByParcelLocker/"+id, {credentials: "include"});
+            const res = await fetch("http://snf-58216.vm.okeanos-global.grnet.gr:3001/unlocks/getByParcelLocker/"+id, {credentials: "include"});
             const data = await res.json();
             console.log(unlocks);
             setUnlocks(data);

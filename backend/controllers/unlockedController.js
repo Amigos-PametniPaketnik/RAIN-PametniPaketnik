@@ -78,8 +78,9 @@ module.exports = {
     create: function (req, res) {
         var unlocked = new UnlockedModel({
 			idParcelLocker : req.body.idParcelLocker,
-			idUser : req.body.userId,
-			dateTime : req.body.datetime
+			idUser : req.body.idUser,
+			dateTime : new Date(),
+            opened: req.body.opened
         });
 
         unlocked.save(function (err, unlocked) {

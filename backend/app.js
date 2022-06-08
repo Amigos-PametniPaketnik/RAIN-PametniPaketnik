@@ -17,20 +17,21 @@ var parcelLockersRouter = require('./routes/parcelLockerRoutes');
 var accessPermissionsRouter = require('./routes/accessPermissionRoutes');
 var unlocksRouter = require('./routes/unlockedRoutes');
 var eNotifyRouter = require('./routes/eNotifyRoutes');
+// Api Routers
+var indexApiRouter = require('./routes/indexApi');
+var usersApiRouter = require('./routes/userRoutesApi');
+var parcelLockerApiRouter = require('./routes/parcelLockerRoutesApi');
+var accessPermissionsApiRouter = require('./routes/accessPremissionRoutesApi');
+var unlocksApiRouter = require('./routes/unlockedApiRoutes');
+var eNotifyApiRouter = require('./routes/eNotifyApiRoutes');
 
 var app = express();
 
 var cors = require('cors');
-var allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+var allowedOrigins = ['http://snf-58216.vm.okeanos-global.grnet.gr:3000', 'http://snf-58216.vm.okeanos-global.grnet.gr:3001'];
 app.use(cors({
   credentials: true,
   origin: function(origin, callback){
-    // Allow requests with no origin (mobile apps, curl)
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin)===-1){
-      var msg = "The CORS policy does not allow access from the specified Origin.";
-      return callback(new Error(msg), false);
-    }
     return callback(null, true);
   }
 }));
@@ -60,6 +61,14 @@ app.use('/parcel-lockers', parcelLockersRouter);
 app.use('/access-permissions', accessPermissionsRouter);
 app.use('/unlocks', unlocksRouter);
 app.use('/notifications', eNotifyRouter);
+// Router for third useable Restful API
+app.use('/api/', indexRouter);
+app.use('/api/users', usersApiRouter);
+app.use('/api/parcel-lockers', parcelLockerApiRouter);
+app.use('/api/access-premissions', accessPermissionsApiRouter);
+app.use('/api/unlocks', unlocksApiRouter);
+app.use('/api/notifications', eNotifyApiRouter);
+
 
 
 // catch 404 and forward to error handler

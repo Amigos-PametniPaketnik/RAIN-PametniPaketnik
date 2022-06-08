@@ -25,7 +25,7 @@ function ParcelLockers() {
 
     useEffect(function(){
         const getParcelLockers = async function(){
-            const res = await fetch("http://localhost:3001/parcel-lockers", {credentials: "include"});
+            const res = await fetch("http://snf-58216.vm.okeanos-global.grnet.gr:3001/parcel-lockers", {credentials: "include"});
             const data = await res.json();
             setParcelLockers(data);
         }

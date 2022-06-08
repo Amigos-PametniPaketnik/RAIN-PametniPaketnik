@@ -7,7 +7,8 @@ var userSchema = new Schema({
 	'password' : String,
 	'name' : String,
 	'lastname' : String,
-	'email' : String
+	'email' : String,
+	'label': Number
 });
 
 userSchema.pre('save', function(next){

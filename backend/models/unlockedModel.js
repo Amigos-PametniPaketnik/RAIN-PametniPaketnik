@@ -10,7 +10,8 @@ var unlockedSchema = new Schema({
 	 	type: Schema.Types.ObjectId,
 	 	ref: 'User'
 	},
-	'dateTime' : Date
+	'dateTime' : Date,
+	'opened' : Boolean
 });
 
 module.exports = mongoose.model('unlocked', unlockedSchema);
